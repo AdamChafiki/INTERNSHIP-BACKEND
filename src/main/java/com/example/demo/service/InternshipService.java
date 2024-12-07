@@ -99,8 +99,24 @@ public class InternshipService {
         return internshipRepository.findByTitleContainingIgnoreCase(query);
     }
 
-    public Internship getInternshipById(Long id){
-        return internshipRepository.findById(id).orElseThrow(() -> new RuntimeException("Internship not found"));
-    }
+//    here should  add company information
+public InternshipResponse getInternshipById(Long id) {
+    // Find the internship by its ID
+    Internship internship = internshipRepository.findById(id)
+            .orElseThrow(() -> new RuntimeException("Internship not found"));
+
+    // Build the response including company information
+    return new InternshipResponse(
+            internship.getId(),
+            internship.getTitle(),
+            internship.getDescription(),
+            internship.getDuration(),
+            internship.getType(),
+            internship.getPresence(),
+            internship.getLocation(),
+            internship.getCreatedAt(),
+            internship.getCompany().getName()
+    );
+}
 
 }

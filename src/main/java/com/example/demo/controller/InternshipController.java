@@ -44,7 +44,7 @@ public class InternshipController {
     }
 
     @GetMapping("/{internshipId}")
-    public ResponseEntity<Internship> getInternshipById(@PathVariable Long internshipId) {
+    public ResponseEntity<InternshipResponse> getInternshipById(@PathVariable Long internshipId) {
         return  ResponseEntity.status(200).body(internshipService.getInternshipById(internshipId));
     }
 

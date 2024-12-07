@@ -57,6 +57,13 @@ public class InternshipApplicationService {
 
         return internshipApplicationRepository.save(application);
     }
+
+
+    public List<InternshipApplication> findApplicationsByCompanyId(Long companyId) {
+        return internshipApplicationRepository.findByCompanyId(companyId);
+    }
+
+
     @Transactional
     public int deleteByInternshipSeekerId(Long internshipSeekerId) {
         return internshipApplicationRepository.deleteByInternshipSeekerId(internshipSeekerId);

@@ -3,6 +3,7 @@ package com.example.demo.controller;
 import com.example.demo.dto.InternshipApplicationDTO;
 import com.example.demo.model.InternshipApplication;
 import com.example.demo.service.InternshipApplicationService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -27,6 +28,12 @@ public class InternshipApplicationController {
     @GetMapping("/internshipSeeker/{internshipSeekerId}")
     public List<InternshipApplication> getInternshipApplications(@PathVariable Long internshipSeekerId) {
         return internshipApplicationService.findByInternshipSeekerId(internshipSeekerId);
+    }
+
+    @GetMapping("/company/{companyId}")
+    public ResponseEntity<List<InternshipApplication>> getApplicationsByCompanyId(@PathVariable Long companyId) {
+        List<InternshipApplication> applications = internshipApplicationService.findApplicationsByCompanyId(companyId);
+        return ResponseEntity.ok(applications);
     }
 
     @PostMapping("")
