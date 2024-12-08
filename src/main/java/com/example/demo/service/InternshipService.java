@@ -90,14 +90,34 @@ public class InternshipService {
                         internship.getPresence(),
                         internship.getLocation(),
                         internship.getCreatedAt(),
-                        internship.getCompany().getName() // Assuming `Company` has a `getName()` method
+                        internship.getCompany().getName(),
+                        internship.getCompany().getId()
+
                 ))
                 .collect(Collectors.toList());
     }
 
-    public List<Internship> searchInternshipsByTitle(String query) {
-        return internshipRepository.findByTitleContainingIgnoreCase(query);
+    public List<InternshipResponse> searchInternshipsByTitle(String query) {
+        // Fetch internships matching the title
+        List<Internship> internships = internshipRepository.findByTitleContainingIgnoreCase(query);
+
+        // Map each Internship entity to an InternshipResponse
+        return internships.stream()
+                .map(internship -> new InternshipResponse(
+                        internship.getId(),
+                        internship.getTitle(),
+                        internship.getDescription(),
+                        internship.getDuration(),
+                        internship.getType(),
+                        internship.getPresence(),
+                        internship.getLocation(),
+                        internship.getCreatedAt(),
+                        internship.getCompany().getName(),
+                        internship.getCompany().getId()
+                ))
+                .collect(Collectors.toList());
     }
+
 
 //    here should  add company information
 public InternshipResponse getInternshipById(Long id) {
@@ -115,8 +135,26 @@ public InternshipResponse getInternshipById(Long id) {
             internship.getPresence(),
             internship.getLocation(),
             internship.getCreatedAt(),
-            internship.getCompany().getName()
+            internship.getCompany().getName(),
+            internship.getCompany().getId()
     );
 }
 
+    public List<InternshipResponse> getInternshipByLocation(String location) {
+        List<Internship> internships = internshipRepository.findByLocation(location);
+        return internships.stream()
+                .map(internship -> new InternshipResponse(
+                        internship.getId(),
+                        internship.getTitle(),
+                        internship.getDescription(),
+                        internship.getDuration(),
+                        internship.getType(),
+                        internship.getPresence(),
+                        internship.getLocation(),
+                        internship.getCreatedAt(),
+                        internship.getCompany().getName(),
+                        internship.getCompany().getId()
+                ))
+                .collect(Collectors.toList());
+    }
 }

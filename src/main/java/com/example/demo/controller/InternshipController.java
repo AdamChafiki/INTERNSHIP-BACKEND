@@ -29,7 +29,7 @@ public class InternshipController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Internship>> searchInternships(@RequestParam(value = "q", required = false) String query) {
+    public ResponseEntity<List<InternshipResponse>> searchInternships(@RequestParam(value = "q", required = false) String query) {
         return ResponseEntity.ok(internshipService.searchInternshipsByTitle(query));
     }
 
@@ -60,6 +60,13 @@ public class InternshipController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
     }
+
+    @GetMapping("/location")
+    public ResponseEntity<List<InternshipResponse>> getInternships(
+            @RequestParam(required = false) String location) {
+        return ResponseEntity.ok(internshipService.getInternshipByLocation(location));
+    }
+
 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<Void> deleteInternship(@PathVariable Long id) {

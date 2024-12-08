@@ -4,6 +4,7 @@ package com.example.demo.repository;
 import com.example.demo.model.Internship;
 import com.example.demo.model.InternshipApplication;
 import com.example.demo.model.InternshipSeeker;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -27,7 +28,7 @@ public interface InternshipApplicationRepository extends JpaRepository<Internshi
     List<InternshipApplication> findByInternshipSeekerId(Long internshipSeekerId);
 
     @Transactional
-    int deleteByInternshipSeekerId(Long internshipSeekerId);
+    void deleteById(@NotNull Long internshipSeekerId);
 
     boolean existsByInternshipAndInternshipSeeker(Internship internship, InternshipSeeker internshipSeeker);
 

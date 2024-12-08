@@ -37,6 +37,11 @@ public class CompanyController {
         return companyService.getAllCompanies();
     }
 
+    @GetMapping("/{companyId}")
+    public Company getAllCompanies(@PathVariable Long companyId) {
+        return companyService.getCompanyById(companyId);
+    }
+
     @GetMapping("/user/{userId}")
     public ResponseEntity<Company> getCompanyByUserId(@PathVariable Long userId) {
         Optional<Company> company = companyService.getCompanyByUserId(userId);

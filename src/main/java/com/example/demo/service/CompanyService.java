@@ -27,6 +27,14 @@ public class CompanyService {
         this.userService = userService;
     }
 
+    public Company getCompanyById(Long id) {
+        Optional<Company> company = companyRepository.findById(id);
+        if (company.isPresent()) {
+            return company.get();
+        }
+        throw new EntityNotFoundException("Company not found");
+    }
+
     public Company saveCompany(CompanyDto input) {
 
 
@@ -92,7 +100,9 @@ public class CompanyService {
                 internship.getPresence(),
                 internship.getLocation(),
                 internship.getCreatedAt(),
-                internship.getCompany().getName());
+                internship.getCompany().getName(), internship.getCompany().getId()
+        );
+
     }
 
 }

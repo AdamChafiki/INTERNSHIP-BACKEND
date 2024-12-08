@@ -65,8 +65,9 @@ public class InternshipApplicationService {
 
 
     @Transactional
-    public int deleteByInternshipSeekerId(Long internshipSeekerId) {
-        return internshipApplicationRepository.deleteByInternshipSeekerId(internshipSeekerId);
+    public int deleteByInternshipSeekerId(Long applicationId) {
+        internshipApplicationRepository.deleteById(applicationId);
+        return 0;
     }
 
 
