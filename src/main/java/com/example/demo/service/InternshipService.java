@@ -62,9 +62,9 @@ public class InternshipService {
 
             if (internshipDto.getTitle() != null) existingInternship.setTitle(internshipDto.getTitle());
             if (internshipDto.getDescription() != null) existingInternship.setDescription(internshipDto.getDescription());
-            if (internshipDto.getPresence() != null) existingInternship.setLocation(internshipDto.getPresence());
-            if (internshipDto.getLocation() != null) existingInternship.setLocation(internshipDto.getLocation());
-            if (internshipDto.getType() != null) existingInternship.setLocation(internshipDto.getType());
+            if (internshipDto.getPresence() != null) existingInternship.setPresence(internshipDto.getPresence()); // Update presence
+            if (internshipDto.getLocation() != null) existingInternship.setLocation(internshipDto.getLocation()); // Update location
+            if (internshipDto.getType() != null) existingInternship.setType(internshipDto.getType()); // Update type
             if (internshipDto.getDuration() != -1) existingInternship.setDuration(internshipDto.getDuration());
 
             return internshipRepository.save(existingInternship);
@@ -72,6 +72,7 @@ public class InternshipService {
 
         throw new EntityNotFoundException("Internship with id " + id + " not found.");
     }
+
 
 
     public void deleteInternship(Long id) {

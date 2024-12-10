@@ -25,7 +25,7 @@ public class Company {
     private String sector;
     @Column(nullable = false)
     private String type;
-    @Column(nullable = false)
+    @Column(nullable = false,columnDefinition = "TEXT")
     private String description;
     @Column(nullable = false)
     private String urlWebsite;

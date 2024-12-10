@@ -35,7 +35,7 @@ public class SecurityConfiguration {
         http
                 .csrf(csrf -> csrf.disable())  // Disable CSRF protection for stateless authentication
                 .authorizeHttpRequests(authorize -> authorize
-                                .requestMatchers("auth/signup", "auth/login", "company/", "internship/all", "internship", "internship/**", "company", "upload/**",          // Allow all upload-related routes
+                                .requestMatchers("auth/signup", "auth/login", "company/", "internship/all", "internship", "internship/**", "company/**", "upload/**",          // Allow all upload-related routes
                                         "upload/*/resume").permitAll()  // Allow public access to authentication routes
                                 .anyRequest().authenticated()  // Require authentication for other requests
 //                        .requestMatchers("/auth/employer").hasAnyRole("EMPLOYER")/
