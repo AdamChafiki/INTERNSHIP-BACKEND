@@ -4,11 +4,14 @@ import com.example.demo.dto.InternshipDto;
 import com.example.demo.exception.EntityNotFoundException;
 import com.example.demo.model.Internship;
 import com.example.demo.responses.InternshipResponse;
+import com.example.demo.service.EmailService;
 import com.example.demo.service.InternshipService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.util.List;
 
 
@@ -17,9 +20,10 @@ import java.util.List;
 
 public class InternshipController {
     private final InternshipService internshipService;
-
-    public InternshipController(InternshipService internshipService) {
+    private final EmailService emailService;
+    public InternshipController(InternshipService internshipService, EmailService emailService) {
         this.internshipService = internshipService;
+        this.emailService = emailService;
     }
 
 
@@ -73,5 +77,35 @@ public class InternshipController {
         internshipService.deleteInternship(id);
         return ResponseEntity.noContent().build(); // 204 No Content
     }
+
+    @PostMapping("/send-internship-request")
+    public ResponseEntity<String> sendInternshipRequest(
+            @RequestParam("companyEmail") String companyEmail,
+            @RequestParam("seekerName") String seekerName,
+            @RequestParam("seekerEmail") String seekerEmail,
+            @RequestParam("seekerMessage") String seekerMessage,
+            @RequestParam("cv") MultipartFile cv) {
+        try {
+            // Save CV locally (optional) or directly use it
+            File cvFile = new File(System.getProperty("java.io.tmpdir") + "/" + cv.getOriginalFilename());
+            cv.transferTo(cvFile);
+
+            // Send email with attachment
+            emailService.sendInternshipRequestEmail(companyEmail, seekerName, seekerEmail, seekerMessage, cvFile);
+
+            // Delete the temporary file after sending the email (optional)
+            cvFile.delete();
+
+            return ResponseEntity.ok("Email sent successfully!");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to send email: " + e.getMessage());
+        }
+    }
+
+
+
+
+
+
 
 }

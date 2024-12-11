@@ -3,7 +3,9 @@ package com.example.demo.model;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.List;
@@ -12,7 +14,7 @@ import java.util.List;
 @Table(name = "companies")
 @Getter
 @Setter
-
+@AllArgsConstructor
 public class Company {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -54,6 +56,7 @@ public class Company {
         this.user = user;
     }
 
-
-
+//new
+    public Company(Long companyId) {
+    }
 }

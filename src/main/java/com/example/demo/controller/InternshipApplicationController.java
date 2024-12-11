@@ -3,11 +3,12 @@ package com.example.demo.controller;
 import com.example.demo.dto.InternshipApplicationDTO;
 import com.example.demo.model.InternshipApplication;
 import com.example.demo.service.InternshipApplicationService;
+import com.example.demo.service.InternshipService;  // Add this import
+import com.example.demo.service.NotificationService;  // Add this import
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
 
 @RestController
 @RequestMapping("/job-application")
@@ -15,10 +16,11 @@ public class InternshipApplicationController {
 
     private final InternshipApplicationService internshipApplicationService;
 
-    public InternshipApplicationController(InternshipApplicationService internshipApplicationService) {
+    public InternshipApplicationController(InternshipApplicationService internshipApplicationService
+
+    ) {
         this.internshipApplicationService = internshipApplicationService;
     }
-
 
     @GetMapping("")
     public List<InternshipApplication> getInternshipApplications() {
@@ -45,6 +47,4 @@ public class InternshipApplicationController {
     public int deleteByInternshipSeekerId(@PathVariable Long internshipSeekerId) {
         return internshipApplicationService.deleteByInternshipSeekerId(internshipSeekerId);
     }
-
-
 }

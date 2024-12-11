@@ -158,4 +158,13 @@ public InternshipResponse getInternshipById(Long id) {
                 ))
                 .collect(Collectors.toList());
     }
+
+    public Long getCompanyIdByInternshipId(Long internshipId) {
+        // Retrieve the internship entity by its ID
+        Internship internship = internshipRepository.findById(internshipId)
+                .orElseThrow(() -> new RuntimeException("Internship not found with ID: " + internshipId));
+
+        // Return the company (employer) ID from the internship
+        return internship.getCompany().getId();  // Assuming `Internship` has a `Company` object
+    }
 }
